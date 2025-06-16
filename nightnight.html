@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lavender Love Letter Envelope</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(
+          135deg,
+          #f3f0ff 0%,
+          #e8e0ff 50%,
+          #ddd4f0 100%
+        );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      .envelope-wrapper {
+        perspective: 2000px;
+        width: 95%;
+        max-width: 700px;
+        margin: auto;
+      }
+
+      .envelope {
+        position: relative;
+        width: 100%;
+        padding-top: 65%;
+        background: #f8f5ff;
+        border: 2px solid #d8c9f0;
+        overflow: hidden;
+        transform-style: preserve-3d;
+        transition: transform 1s ease;
+        cursor: pointer;
+        box-shadow: 0 10px 30px rgba(138, 43, 226, 0.2);
+      }
+
+      /* Back panel of envelope */
+      .envelope::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #f8f5ff;
+        z-index: 0;
+      }
+
+      /* Triangular Flap */
+      .flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        background: linear-gradient(145deg, #e6d8ff 0%, #d4c0f0 100%);
+        clip-path: polygon(0 0, 50% 100%, 100% 0);
+        z-index: 2;
+        transform-origin: 50% 0%;
+        transition: transform 1s ease;
+        border-left: 2px solid #d8c9f0;
+        border-right: 2px solid #d8c9f0;
+        box-shadow: 0 5px 15px rgba(138, 43, 226, 0.15);
+      }
+
+      .envelope.open .flap {
+        transform: rotateX(-180deg);
+      }
+
+      /* Lavender Wax Seal */
+      .heart-seal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(145deg, #8b5cf6 0%, #7c3aed 100%);
+        border-radius: 50%;
+        z-index: 3;
+        transition: opacity 0.3s ease;
+        box-shadow: 0 3px 8px rgba(138, 43, 226, 0.4),
+          inset 0 1px 3px rgba(255, 255, 255, 0.3);
+        border: 2px solid #6d28d9;
+      }
+
+      /* Wax seal lavender impression */
+      .heart-seal::before {
+        content: "🌸";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 18px;
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+      }
+
+      .envelope.open .heart-seal {
+        opacity: 0;
+      }
+
+      /* Letter */
+      .letter {
+        position: absolute;
+        top: 10%;
+        left: 5%;
+        width: 90%;
+        height: 80%;
+        background: linear-gradient(145deg, #fefcff 0%, #faf8ff 100%);
+        padding: 40px 30px;
+        border-radius: 12px;
+        box-shadow: 0 15px 30px rgba(138, 43, 226, 0.2);
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease 0.5s, transform 0.6s ease 0.5s;
+        z-index: 1;
+        overflow-y: auto;
+        border: 1px solid #e6d8ff;
+      }
+
+      .envelope.open .letter {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .letter h2 {
+        text-align: center;
+        background: linear-gradient(
+          135deg,
+          #8b5cf6 0%,
+          #a855f7 50%,
+          #c084fc 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 0 0 20px 0;
+        font-size: 2rem;
+        font-weight: 600;
+        text-shadow: 0 2px 4px rgba(138, 43, 226, 0.1);
+      }
+
+      .letter p {
+        color: #4c1d95;
+        font-size: 1.2rem;
+        line-height: 1.8;
+        margin: 0;
+        text-align: justify;
+        text-shadow: 0 1px 2px rgba(138, 43, 226, 0.05);
+      }
+
+      /* Add some lavender decorative elements */
+      .letter::before {
+        content: "🌿";
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        font-size: 20px;
+        opacity: 0.6;
+      }
+
+      .letter::after {
+        content: "🌿";
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 20px;
+        opacity: 0.6;
+        transform: scaleX(-1);
+      }
+
+      @media (max-width: 600px) {
+        .letter {
+          padding: 25px 20px;
+        }
+
+        .letter h2 {
+          font-size: 1.5rem;
+        }
+
+        .letter p {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="envelope-wrapper">
+      <div class="envelope" onclick="toggleEnvelope(this)">
+        <div class="flap"></div>
+        <div class="v-crease"></div>
+        <div class="heart-seal"></div>
+        <div class="letter">
+          <h2>To the one who inspires me most,</h2>
+          <p>
+            This letter is appreciation lang for u hehehehehe, sponty lang
+            <br /><br />
+            Hi March! I just want to say thank you for giving me or us a chance.
+            Thanks you for being present these past few weeks, I appreciate your
+            presence, a lot.
+            <br /><br />
+            Your presence during this past month made me feel more alive. Alam
+            ko minsan mukha kong nanti-trip pero, sana, hindi matabunan yung
+            real intentions ko for you. I appreciate how trusting and assuring
+            you are!
+            <br /><br />
+            Yun lang naman asim, just wanna say thanks, kasi malay mo wala na ko
+            bukas? Sayang naman di ko nasabi, diba? Also, I want you to know how
+            grateful am I to have you in my life, Elaine ogil. Good night,
+            baby🌸
+            <br /><br />
+            Forever and always,<br />
+            Your crush, Raizen
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- MUSIC -->
+    <audio id="loveSong" preload="auto">
+      <source
+        src="C:\Users\raize\Aoi\Get You (feat. Kali Uchis).mp3"
+        type="audio/mpeg"
+      />
+      Your browser does not support the audio element.
+    </audio>
+
+    <script>
+      const song = document.getElementById("loveSong");
+
+      function toggleEnvelope(el) {
+        el.classList.toggle("open");
+
+        if (el.classList.contains("open")) {
+          song.currentTime = 0;
+          song.play();
+        } else {
+          song.pause();
+          song.currentTime = 0;
+        }
+      }
+    </script>
+  </body>
+</html>
